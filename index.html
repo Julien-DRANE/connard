@@ -2,22 +2,31 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>connard</title>
+  <title>Video Demo</title>
 
-  <!-- Base href : "./" pour GitHub Pages (repo root) -->
+  <!-- Base href pour GitHub Pages -->
   <base href="./">
 
-  <link rel="manifest" href="manifest.json">
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-
-  <!-- Styles de base pour la vidéo (facultatif) -->
+  <!-- Styles de base (vous pouvez les placer dans un fichier séparé) -->
   <style>
     body{margin:0;font-family:sans-serif;background:#222;color:white;}
-    #videoContainer{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;}
-    video{max-width:90vw;max-height:70vh;border-radius:8px;}
+    #videoContainer{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      height:100vh;
+    }
+    video{
+      max-width:90vw;
+      max-height:70vh;
+      border-radius:8px;
+      background:#000;
+    }
     .controls{margin-top:12px;}
-    button{background:#555;color:white;border:none;padding:8px 16px;margin:0 4px;border-radius:4px;cursor:pointer;}
+    button{
+      background:#555;color:white;border:none;padding:8px 16px;margin:0 4px;border-radius:4px;cursor:pointer;
+    }
     button:hover{background:#777;}
   </style>
 </head>
@@ -35,13 +44,12 @@
   <!-- Flutter bootstrap -->
   <script src="flutter_bootstrap.js" async></script>
 
-  <!-- Script de contrôle vidéo -->
+  <!-- Contrôle vidéo -->
   <script type="application/javascript">
     document.addEventListener('DOMContentLoaded', () => {
-      const videoSrc = 'assets/video/ma_video.mp4';   // <-- ajustez si besoin
-      const player   = document.getElementById('player');
+      const player = document.getElementById('player');
       if (!player) return;
-      player.src = videoSrc;
+      player.src = 'assets/video/ma_video.mp4';
       player.load();
 
       window.play  = () => player.play();
