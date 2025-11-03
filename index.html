@@ -1,46 +1,21 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <!-- --------------------------- -->
-  <!-- Configuration de base pour GitHub Pages -->
-  <!-- --------------------------- -->
-  <!-- 
-      Sur GitHub Pages la page est servie depuis :  
-          https://<votre‑nom>.github.io/<repo>/  
+  <meta charset="utf-8">
+  <title>connard</title>
 
-      Pour que les chemins relatifs (assets, main.dart.js…) fonctionnent,
-      il faut mettre un <base href="./">.  
-      Si vous servez le site à la racine de votre domaine
-      (exemple.com) utilisez <base href="/">. -->
+  <!-- Base href : "./" pour GitHub Pages (repo root) -->
   <base href="./">
 
-  <!-- --------------------------- -->
-  <!-- Métadonnées et favicon -->
-  <!-- --------------------------- -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="description" content="Un petit lecteur vidéo Flutter (web)">
-
-  <!-- iOS/Android meta + icon -->
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="connard">
-
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png">
-
-  <title>connard</title>
   <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- --------------------------- -->
-  <!-- CSS (si vous en avez) -->
-  <!-- --------------------------- -->
+  <!-- Styles de base pour la vidéo (facultatif) -->
   <style>
-    /* un petit style par défaut pour la vidéo */
-    body { margin:0; font-family: sans-serif; background:#222; color:white; }
-    #videoContainer{display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;}
-    video{max-width:90vw; max-height:70vh; border-radius:8px;}
+    body{margin:0;font-family:sans-serif;background:#222;color:white;}
+    #videoContainer{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100vh;}
+    video{max-width:90vw;max-height:70vh;border-radius:8px;}
     .controls{margin-top:12px;}
     button{background:#555;color:white;border:none;padding:8px 16px;margin:0 4px;border-radius:4px;cursor:pointer;}
     button:hover{background:#777;}
@@ -48,9 +23,6 @@
 </head>
 
 <body>
-  <!-- --------------------------- -->
-  <!-- Votre application Flutter -->
-  <!-- --------------------------- -->
   <div id="videoContainer">
     <video id="player" controls></video>
     <div class="controls">
@@ -60,25 +32,22 @@
     </div>
   </div>
 
-  <!-- Le bootstrap fourni par Flutter -->
+  <!-- Flutter bootstrap -->
   <script src="flutter_bootstrap.js" async></script>
 
-  <!-- --------------------------- -->
-  <!-- Script d’initialisation vidéo (facultatif) -->
-  <!-- --------------------------- -->
+  <!-- Script de contrôle vidéo -->
   <script type="application/javascript">
-    // Chemin vers votre fichier MP4
-    const videoSrc = 'assets/video/ma_video.mp4';   // <-- ajustez ici
+    document.addEventListener('DOMContentLoaded', () => {
+      const videoSrc = 'assets/video/ma_video.mp4';   // <-- ajustez si besoin
+      const player   = document.getElementById('player');
+      if (!player) return;
+      player.src = videoSrc;
+      player.load();
 
-    const player = document.getElementById('player');
-    player.src = videoSrc;
-
-    function play() { player.play(); }
-    function pause(){ player.pause(); }
-    function stop(){
-      player.pause();
-      player.currentTime = 0;
-    }
+      window.play  = () => player.play();
+      window.pause = () => player.pause();
+      window.stop  = () => { player.pause(); player.currentTime = 0; };
+    });
   </script>
 </body>
 </html>
