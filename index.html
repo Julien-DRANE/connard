@@ -1,38 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
+  <!-- --------------------------- -->
+  <!-- Configuration de base pour GitHub Pages -->
+  <!-- --------------------------- -->
+  <!-- 
+      Sur GitHub Pages la page est servie depuis :  
+          https://<votre‑nom>.github.io/<repo>/  
 
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
+      Pour que les chemins relatifs (assets, main.dart.js…) fonctionnent,
+      il faut mettre un <base href="./">.  
+      Si vous servez le site à la racine de votre domaine
+      (exemple.com) utilisez <base href="/">. -->
+  <base href="./">
 
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+  <!-- --------------------------- -->
+  <!-- Métadonnées et favicon -->
+  <!-- --------------------------- -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="description" content="Un petit lecteur vidéo Flutter (web)">
 
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/">
-
-  <meta charset="UTF-8">
-  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
-
-  <!-- iOS meta tags & icons -->
+  <!-- iOS/Android meta + icon -->
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="connard">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <link rel="icon" type="image/png" href="favicon.png">
 
   <title>connard</title>
   <link rel="manifest" href="manifest.json">
+
+  <!-- --------------------------- -->
+  <!-- CSS (si vous en avez) -->
+  <!-- --------------------------- -->
+  <style>
+    /* un petit style par défaut pour la vidéo */
+    body { margin:0; font-family: sans-serif; background:#222; color:white; }
+    #videoContainer{display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh;}
+    video{max-width:90vw; max-height:70vh; border-radius:8px;}
+    .controls{margin-top:12px;}
+    button{background:#555;color:white;border:none;padding:8px 16px;margin:0 4px;border-radius:4px;cursor:pointer;}
+    button:hover{background:#777;}
+  </style>
 </head>
+
 <body>
+  <!-- --------------------------- -->
+  <!-- Votre application Flutter -->
+  <!-- --------------------------- -->
+  <div id="videoContainer">
+    <video id="player" controls></video>
+    <div class="controls">
+      <button onclick="play()">Play</button>
+      <button onclick="pause()">Pause</button>
+      <button onclick="stop()">Stop</button>
+    </div>
+  </div>
+
+  <!-- Le bootstrap fourni par Flutter -->
   <script src="flutter_bootstrap.js" async></script>
+
+  <!-- --------------------------- -->
+  <!-- Script d’initialisation vidéo (facultatif) -->
+  <!-- --------------------------- -->
+  <script type="application/javascript">
+    // Chemin vers votre fichier MP4
+    const videoSrc = 'assets/video/ma_video.mp4';   // <-- ajustez ici
+
+    const player = document.getElementById('player');
+    player.src = videoSrc;
+
+    function play() { player.play(); }
+    function pause(){ player.pause(); }
+    function stop(){
+      player.pause();
+      player.currentTime = 0;
+    }
+  </script>
 </body>
 </html>
