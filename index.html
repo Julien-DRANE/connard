@@ -1,63 +1,71 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <title>Video Demo</title>
+<meta charset="utf-8">
+<title>Lecteur MP4 simple</title>
 
-  <!-- Base href pour GitHub Pages -->
-  <base href="./">
-
-  <!-- Styles de base (vous pouvez les placer dans un fichier séparé) -->
-  <style>
-    body{margin:0;font-family:sans-serif;background:#222;color:white;}
-    #videoContainer{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      height:100vh;
-    }
-    video{
-      max-width:90vw;
-      max-height:70vh;
-      border-radius:8px;
-      background:#000;
-    }
-    .controls{margin-top:12px;}
-    button{
-      background:#555;color:white;border:none;padding:8px 16px;margin:0 4px;border-radius:4px;cursor:pointer;
-    }
-    button:hover{background:#777;}
-  </style>
+<style>
+  body{margin:0;font-family:sans-serif;background:#222;color:white;}
+  #container{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    height:100vh;
+  }
+  video{
+    max-width:90vw;
+    max-height:70vh;
+    background:#000;
+    border-radius:8px;
+  }
+  .controls{
+    margin-top:12px;
+  }
+  button{
+    padding:8px 16px;
+    margin:0 4px;
+    background:#555;color:white;border:none;border-radius:4px;cursor:pointer;
+  }
+  button:hover{background:#777;}
+</style>
 </head>
 
 <body>
-  <div id="videoContainer">
-    <video id="player" controls></video>
-    <div class="controls">
-      <button onclick="play()">Play</button>
-      <button onclick="pause()">Pause</button>
-      <button onclick="stop()">Stop</button>
-    </div>
+<div id="container">
+  <!-- Le lecteur -->
+  <video id="player" preload="metadata"></video>
+
+  <!-- Boutons (hors du lecteur) -->
+  <div class="controls">
+    <button onclick="play()">Play</button>
+    <button onclick="pause()">Pause</button>
+    <button onclick="stop()">Stop</button>
   </div>
+</div>
 
-  <!-- Flutter bootstrap -->
-  <script src="flutter_bootstrap.js" async></script>
+<script>
+// ------------------------------------------------------------------
+// 1️⃣ Définir le chemin de la vidéo
+// ------------------------------------------------------------------
+const videoPath = 'assets/assets/videos/connard.mp4'; // <-- ajustez si besoin
 
-  <!-- Contrôle vidéo -->
-  <script type="application/javascript">
-    document.addEventListener('DOMContentLoaded', () => {
-      const player = document.getElementById('player');
-      if (!player) return;
-      player.src = 'assets/assets/videos/connard.mp4';
-      player.load();
+// ------------------------------------------------------------------
+// 2️⃣ Initialiser le lecteur
+// ------------------------------------------------------------------
+const player = document.getElementById('player');
+player.src = videoPath;
+player.load();   // force le chargement du fichier
 
-      window.play  = () => player.play();
-      window.pause = () => player.pause();
-      window.stop  = () => { player.pause(); player.currentTime = 0; };
-    });
-  </script>
+// ------------------------------------------------------------------
+// 3️⃣ Fonctions de contrôle (exposées globalement)
+// ------------------------------------------------------------------
+function play()   { player.play(); }
+function pause()  { player.pause(); }
+function stop()   {
+    player.pause();
+    player.currentTime = 0;   // retour au début
+}
+</script>
 </body>
 </html>
-
-
